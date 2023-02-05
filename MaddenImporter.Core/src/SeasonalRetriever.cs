@@ -67,7 +67,7 @@ namespace MaddenImporter.Core
         {
             IEnumerable<Player> players = new List<Player>();
             var types = new PlayerType[] { PlayerType.Defense, PlayerType.Passing, PlayerType.Receiving,
-            PlayerType.Rushing, PlayerType.Returns, PlayerType.Kicking };
+            PlayerType.Rushing, PlayerType.Returns, PlayerType.Kicking, PlayerType.Punting };
             foreach (var enumType in types)
             {
                 var retrieved = await GetPlayersJson(year, enumType);

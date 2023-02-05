@@ -10,6 +10,7 @@ namespace MaddenImporter.Excel
         private static Dictionary<Type, string> playerMapper = new Dictionary<Type, string>{
             { typeof(PassingPlayer), "PASSING" },
             { typeof(KickingPlayer), "KICKING" },
+            { typeof(PuntingPlayer), "PUNTING" },
             { typeof(DefensePlayer), "DEFENSE" },
             { typeof(ReceivingPlayer), "RECEIVING" },
             { typeof(ReturningPlayer), "RETURN" },
@@ -45,6 +46,9 @@ namespace MaddenImporter.Excel
                 case RushingPlayer p6:
                     values = new object[] { p6.Name, p6.RushAttempts, p6.GamesPlayed, p6.RushingYards, p6.RushTouchdowns, p6.Fumbles, p6.Team };
                     break;
+                case PuntingPlayer p7:
+                    values = new object[] { p7.Name, p7.PuntAttempts, p7.GamesPlayed, p7.ExtraPointsMade, p7.ExtraPointsAttempted, p7.FieldGoalsMade, p7.FieldGoalsAttempted, p7.PuntYards, p7.PuntsBlocked, p7.Team };
+                    break;
             }
             WriteFields(worksheet, row, values);
         }
@@ -64,6 +68,17 @@ namespace MaddenImporter.Excel
                 worksheet.Cell("I1").Value = "TEAM";
             }
             if (typeof(T) == typeof(KickingPlayer))
+            {
+                worksheet.Cell("B1").Value = "PUNTATTEMPTS";
+                worksheet.Cell("D1").Value = "KICKEPMADE";
+                worksheet.Cell("E1").Value = "KICKEPATTEMPTS";
+                worksheet.Cell("F1").Value = "KICKFGMADE";
+                worksheet.Cell("G1").Value = "KICKFGATTEMPTS";
+                worksheet.Cell("H1").Value = "PUNTYARDS";
+                worksheet.Cell("I1").Value = "PUNTBLOCKED";
+                worksheet.Cell("J1").Value = "TEAM";
+            }
+            if (typeof(T) == typeof(PuntingPlayer))
             {
                 worksheet.Cell("B1").Value = "PUNTATTEMPTS";
                 worksheet.Cell("D1").Value = "KICKEPMADE";

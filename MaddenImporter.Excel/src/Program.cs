@@ -15,7 +15,8 @@ namespace MaddenImporter.Excel
             {
                 new Option<int>(
                     new string[]{"--year", "-y"},
-                    getDefaultValue: () => DateTime.Now.Year,
+                    // getDefaultValue: () => DateTime.Now.Year,
+                    getDefaultValue: () => 2022,
                     description: "For seasonal imports, sets the year to pull data from."
                 ),
                 new Option<bool>(
@@ -73,6 +74,7 @@ namespace MaddenImporter.Excel
             ExcelExtensions.WritePlayerSheet<DefensePlayer>(workbook, Extensions.GetPlayersOfType<DefensePlayer>(players));
             ExcelExtensions.WritePlayerSheet<ReturningPlayer>(workbook, Extensions.GetPlayersOfType<ReturningPlayer>(players));
             ExcelExtensions.WritePlayerSheet<KickingPlayer>(workbook, Extensions.GetPlayersOfType<KickingPlayer>(players));
+            ExcelExtensions.WritePlayerSheet<PuntingPlayer>(workbook, Extensions.GetPlayersOfType<PuntingPlayer>(players));
             ExcelExtensions.WritePlayerSheet<ReceivingPlayer>(workbook, Extensions.GetPlayersOfType<ReceivingPlayer>(players));
 
             workbook.SaveAs(path + "/players.xlsx");
@@ -110,6 +112,7 @@ namespace MaddenImporter.Excel
                 ExcelExtensions.WritePlayerSheet<DefensePlayer>(workbook, Extensions.GetPlayersOfType<DefensePlayer>(players));
                 ExcelExtensions.WritePlayerSheet<ReturningPlayer>(workbook, Extensions.GetPlayersOfType<ReturningPlayer>(players));
                 ExcelExtensions.WritePlayerSheet<KickingPlayer>(workbook, Extensions.GetPlayersOfType<KickingPlayer>(players));
+                //ExcelExtensions.WritePlayerSheet<PuntingPlayer>(workbook, Extensions.GetPlayersOfType<PuntingPlayer>(players));
                 ExcelExtensions.WritePlayerSheet<ReceivingPlayer>(workbook, Extensions.GetPlayersOfType<ReceivingPlayer>(players));
 
                 path += "/players-career.xlsx";

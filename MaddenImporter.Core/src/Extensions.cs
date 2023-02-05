@@ -30,10 +30,12 @@ namespace MaddenImporter.Core
         internal static readonly Dictionary<PlayerType, string> PlayerPositions = new Dictionary<PlayerType, string>{
             { PlayerType.Defense, "Defense" },
             { PlayerType.Kicking, "Kicking" },
+            { PlayerType.Punting, "Punting" },
             { PlayerType.Passing, "Passing" },
             { PlayerType.Receiving, "Receiving" },
             { PlayerType.Returns, "Returning" },
             { PlayerType.Rushing, "Rushing" },
+            
         };
 
         internal static T ConvertFromJson<T>(string json, System.Func<string, string> mapper) where T : Player => JsonSerializer.Deserialize<T>(mapper(json));
@@ -44,6 +46,8 @@ namespace MaddenImporter.Core
             {
                 case PlayerType.Defense:
                     return ConvertFromJson<DefensePlayer>(json, mapper);
+                case PlayerType.Punting:
+                    return ConvertFromJson<PuntingPlayer>(json, mapper);
                 case PlayerType.Rushing:
                     return ConvertFromJson<RushingPlayer>(json, mapper);
                 case PlayerType.Receiving:

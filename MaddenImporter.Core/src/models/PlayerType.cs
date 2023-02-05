@@ -7,6 +7,7 @@ namespace MaddenImporter.Core
         Defense,
         Receiving,
         Returns,
-        Kicking
+        Kicking,
+        Punting
     }
 }
