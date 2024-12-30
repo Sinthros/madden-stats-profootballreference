@@ -16,7 +16,7 @@ namespace MaddenImporter.Excel
                 new Option<int>(
                     new string[]{"--year", "-y"},
                     // getDefaultValue: () => DateTime.Now.Year,
-                    getDefaultValue: () => 2022,
+                    getDefaultValue: () => 2024,
                     description: "For seasonal imports, sets the year to pull data from."
                 ),
                 new Option<bool>(

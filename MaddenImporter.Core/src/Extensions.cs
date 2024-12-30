@@ -1,3 +1,4 @@
+using System;
 using System.Text.Json;
 using System.Linq;
 using System.Collections.Generic;
@@ -75,11 +76,15 @@ namespace MaddenImporter.Core
             
             TryAddKeyValuePair("Name", "name_display");
             TryAddKeyValuePair("Name", "player");
+            TryAddKeyValuePair("Age", "age");
+            TryAddKeyValuePair("PlayerLink", "PlayerLink");
             TryAddKeyValuePair("Team", "teams_played_for_career");
             TryAddKeyValuePair("Team", "team");
+            TryAddKeyValuePair("Team", "team_name_abbr");
             TryAddKeyValuePair("Position", "pos");
             TryAddKeyValuePair("GamesPlayed", "games");
             TryAddKeyValuePair("GamesPlayed", "g");
+            TryAddKeyValuePair("GamesStarted", "games_started");
             TryAddKeyValuePair("GamesStarted", "gs");
             TryAddKeyValuePair("Receptions", "rec");
             TryAddKeyValuePair("LongestReception", "rec_long");
@@ -118,6 +123,7 @@ namespace MaddenImporter.Core
             TryAddKeyValuePair("Safety", "safety_md");
             TryAddKeyValuePair("PuntAttempts", "punt");
             TryAddKeyValuePair("PuntYards", "punt_yds");
+            TryAddKeyValuePair("PuntNetYards", "punt_net_yds");
             TryAddKeyValuePair("PuntsBlocked","punt_blocked");
             TryAddKeyValuePair("FieldGoalsAttempted", "fga");
             TryAddKeyValuePair("FieldGoalsMade", "fgm");

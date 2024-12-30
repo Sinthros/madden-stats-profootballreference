@@ -15,7 +15,7 @@ namespace MaddenImporter.Core
 
         private static readonly Dictionary<PlayerType, string> urlSuffix = new Dictionary<PlayerType, string>
         {
-            { PlayerType.Defense, "&order_by=def_int&positions[]=dt&positions[]=de&positions[]=dl&positions[]=ilb&positions[]=olb&positions[]=lb&positions[]=cb&positions[]=s&positions[]=db&cstat[1]=sacks&ccomp[1]=gt&cval[1]=0&cstat[2]=fumbles_rec&ccomp[2]=gt&cval[2]=0&cstat[3]=tackles_solo&ccomp[3]=gt&cval[3]=0&cstat[4]=safety_md&ccomp[4]=gt&cval[4]=0" },//"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&order_by_asc=0&order_by=def_int&year_min=1995&year_max=2022&positions%5B%5D=dt&positions%5B%5D=de&positions%5B%5D=dl&positions%5B%5D=ilb&positions%5B%5D=olb&positions%5B%5D=lb&positions%5B%5D=cb&positions%5B%5D=s&positions%5B%5D=db&comp_type=reg&ccomp%5B1%5D=gt&cval%5B1%5D=0&cstat%5B1%5D=sacks&ccomp%5B2%5D=gt&cval%5B2%5D=0&cstat%5B2%5D=fumbles_rec&ccomp%5B3%5D=gt&cval%5B3%5D=0&cstat%5B3%5D=tackles_solo&ccomp%5B4%5D=gt&cval%5B4%5D=0&cstat%5B4%5D=safety_md&season_start=1&season_end=-1&weight_min=0&weight_max=500&draft_year_min=1936&draft_year_max=2022&draft_slot_min=1&draft_slot_max=500&draft_pick_in_round=pick_overall&conference=any&seasons_played_comp=gt&is_active=Y&pro_bowls_comp=gt&all_pros_first_team_comp=gt"},//"&order_by=def_int&positions[]=dt&positions[]=de&positions[]=dl&positions[]=ilb&positions[]=olb&positions[]=lb&positions[]=cb&positions[]=s&positions[]=db&cstat[1]=sacks&ccomp[1]=gt&cval[1]=0&cstat[2]=fumbles_rec&ccomp[2]=gt&cval[2]=0&cstat[3]=tackles_solo&ccomp[3]=gt&cval[3]=0&cstat[4]=safety_md&ccomp[4]=gt&cval[4]=0" },
+            { PlayerType.Defense, "&order_by=def_int&positions[]=dt&positions[]=de&positions[]=dl&positions[]=ilb&positions[]=olb&positions[]=lb&positions[]=cb&positions[]=s&positions[]=db&cstat[1]=sacks&ccomp[1]=gt&cval[1]=0&cstat[2]=fumbles_rec&ccomp[2]=gt&cval[2]=0&cstat[3]=tackles_solo&ccomp[3]=gt&cval[3]=0&cstat[4]=safety_md&ccomp[4]=gt&cval[4]=0" },//"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&order_by_asc=0&order_by=def_int&year_min=1995&year_max=2023&positions%5B%5D=dt&positions%5B%5D=de&positions%5B%5D=dl&positions%5B%5D=ilb&positions%5B%5D=olb&positions%5B%5D=lb&positions%5B%5D=cb&positions%5B%5D=s&positions%5B%5D=db&comp_type=reg&ccomp%5B1%5D=gt&cval%5B1%5D=0&cstat%5B1%5D=sacks&ccomp%5B2%5D=gt&cval%5B2%5D=0&cstat%5B2%5D=fumbles_rec&ccomp%5B3%5D=gt&cval%5B3%5D=0&cstat%5B3%5D=tackles_solo&ccomp%5B4%5D=gt&cval%5B4%5D=0&cstat%5B4%5D=safety_md&season_start=1&season_end=-1&weight_min=0&weight_max=500&draft_year_min=1936&draft_year_max=2023&draft_slot_min=1&draft_slot_max=500&draft_pick_in_round=pick_overall&conference=any&seasons_played_comp=gt&is_active=Y&pro_bowls_comp=gt&all_pros_first_team_comp=gt"},//"&order_by=def_int&positions[]=dt&positions[]=de&positions[]=dl&positions[]=ilb&positions[]=olb&positions[]=lb&positions[]=cb&positions[]=s&positions[]=db&cstat[1]=sacks&ccomp[1]=gt&cval[1]=0&cstat[2]=fumbles_rec&ccomp[2]=gt&cval[2]=0&cstat[3]=tackles_solo&ccomp[3]=gt&cval[3]=0&cstat[4]=safety_md&ccomp[4]=gt&cval[4]=0" },
                        
             { PlayerType.Kicking, "&order_by=punt&positions[]=k&positions[]=p&cstat[1]=xpm&ccomp[1]=gt&cval[1]=0" },
             { PlayerType.Passing,  "&order_by=pass_cmp&positions[]=qb" },
@@ -36,7 +36,7 @@ namespace MaddenImporter.Core
             urlSuffix.TryGetValue(playerType, out string suffix);
             suffix ??= "";
             //Console.WriteLine(suffix);
-            return $"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&draft_year_max={DateTime.Now.Year}&draft_pick_in_round=pick_overall&season_start=1&order_by_asc=0&conference=any&year_min=1995&draft_slot_max=500&match=combined=&year_max={DateTime.Now.Year}&season_end=-1&draft_year_min=1936&draft_type=B&is_active=Y&age_min=0&age_max=99&offset={offset}{suffix}";
+            return $"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&season_start=1&order_by_asc=0&conference=any&year_min=1995&draft_slot_max=500&match=combined=&year_max={DateTime.Now.Year}&season_end=-1&is_active=Y&age_min=0&age_max=99&offset={offset}{suffix}";
         }
 
         private IEnumerable<string> GetPageAsJson(IEnumerable<IEnumerable<AngleSharp.Dom.IElement>> playerRows, string pos)
@@ -52,6 +52,27 @@ namespace MaddenImporter.Core
                 {
                     var name = td.GetAttribute("data-stat").ToLower();
                     dynamic value;
+                                        // Check if the cell contains an <a> tag
+                    var anchor = td.QuerySelector("a");
+                    if (anchor != null && (name == "name_display" || name == "player")) // Adjust if the href is tied to a different key
+                    {
+                        var href = anchor.GetAttribute("href");
+                        if (!string.IsNullOrEmpty(href))
+                        {
+                            // Remove query parameters if present
+                            if (href.Contains("?"))
+                            {
+                                href = href.Split('?')[0];
+                            }
+
+                            // Prepend base URL if href is relative
+                            if (href.StartsWith("/"))
+                            {
+                                href = "https://www.pro-football-reference.com" + href;
+                            }
+                            json += $"\"PlayerLink\": \"{href}\",";
+                        }
+                    }
                     var intOk = int.TryParse(td.TextContent, out int @int);
                     var floatOk = float.TryParse(td.TextContent, out float @float);
                     var str = td.TextContent?.Trim();
@@ -84,7 +105,7 @@ namespace MaddenImporter.Core
             Extensions.PlayerPositions.TryGetValue(playerType, out string pos);
             var url = GetCareerUrl(playerType, offset);
             driver.Navigate().GoToUrl(url);
-            //Console.WriteLine(url);
+            Console.WriteLine(url);
             Console.WriteLine($"Now retrieving {playerType} players.");
             int playerRowCount = 0;
             List<string> jsons = new List<string>();

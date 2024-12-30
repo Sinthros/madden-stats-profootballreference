@@ -25,9 +25,10 @@ namespace MaddenImporter.Core
             var url = GetSeasonUrl(year, playerType);
             var document = await browser.OpenAsync(url);
             Console.WriteLine($"Now retrieving {playerType} players.");
+            Console.WriteLine(url);
 
             var playerRows = document.QuerySelectorAll($"table.stats_table > tbody > tr:not(.thead)")
-            .Select(el => el.Children);
+                .Select(el => el.Children);
 
             int playerRowCount = playerRows.Count();
 
@@ -39,6 +40,23 @@ namespace MaddenImporter.Core
                 {
                     var name = td.GetAttribute("data-stat").ToLower();
                     dynamic value;
+
+                    // Check if the cell contains an <a> tag
+                    var anchor = td.QuerySelector("a");
+                    if (anchor != null && (name == "name_display" || name == "player")) // Adjust if the href is tied to a different key
+                    {
+                        var href = anchor.GetAttribute("href");
+                        if (!string.IsNullOrEmpty(href))
+                        {
+                            // Prepend base URL if href is relative
+                            if (href.StartsWith("/"))
+                            {
+                                href = "https://www.pro-football-reference.com" + href;
+                            }
+                            json += $"\"PlayerLink\": \"{href}\",";
+                        }
+                    }
+
                     var intOk = int.TryParse(td.TextContent, out int @int);
                     var floatOk = float.TryParse(td.TextContent, out float @float);
                     var str = td.TextContent?.Trim();
