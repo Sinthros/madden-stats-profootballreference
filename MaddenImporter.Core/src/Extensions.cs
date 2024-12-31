@@ -77,6 +77,7 @@ namespace MaddenImporter.Core
             TryAddKeyValuePair("Name", "name_display");
             TryAddKeyValuePair("Name", "player");
             TryAddKeyValuePair("Age", "age");
+            TryAddKeyValuePair("Age", "age_range");
             TryAddKeyValuePair("PlayerLink", "PlayerLink");
             TryAddKeyValuePair("Team", "teams_played_for_career");
             TryAddKeyValuePair("Team", "team");
