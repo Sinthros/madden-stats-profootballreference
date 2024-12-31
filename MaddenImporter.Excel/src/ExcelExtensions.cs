@@ -132,7 +132,7 @@ namespace MaddenImporter.Excel
                 worksheet.Cell("E1").Value = "KRETYARDS";
                 worksheet.Cell("F1").Value = "KRETTDS";
                 worksheet.Cell("G1").Value = "PRETATTEMPTS";
-                worksheet.Cell("H1").Value = "PRETYDS";
+                worksheet.Cell("H1").Value = "PRETYARDS";
                 worksheet.Cell("I1").Value = "PRETTDS";
                 worksheet.Cell("J1").Value = "TEAM";
                 worksheet.Cell("K1").Value = "PLAYERLINK";
