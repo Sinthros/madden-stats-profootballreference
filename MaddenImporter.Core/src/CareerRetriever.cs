@@ -36,7 +36,10 @@ namespace MaddenImporter.Core
             urlSuffix.TryGetValue(playerType, out string suffix);
             suffix ??= "";
             //Console.WriteLine(suffix);
-            return $"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&season_start=1&order_by_asc=0&conference=any&year_min=1995&draft_slot_max=500&match=combined=&year_max={DateTime.Now.Year}&season_end=-1&is_active=Y&age_min=0&age_max=99&offset={offset}{suffix}";
+            //     Base URL  ->                                                       Combined seasons                                                          Start year                                       End year                                         Check for >= 1 games played                      Draft status           Offset     
+            return $"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&season_start=1&order_by_asc=0&conference=any&year_min=1990&draft_slot_max=500&match=combined=&year_max=2015&season_end=-1&age_min=0&age_max=99&ccomp%5B2%5D=gt&cval%5B2%5D=1&cstat%5B2%5D=games&draft_status=undrafted&offset={offset}{suffix}";
+
+            //return $"https://stathead.com/football/player-season-finder.cgi?request=1&match=player_season_combined&season_start=1&order_by_asc=0&conference=any&year_min=1995&draft_slot_max=500&match=combined=&year_max={DateTime.Now.Year}&season_end=-1&is_active=Y&age_min=0&age_max=99&offset={offset}{suffix}";
         }
 
         private IEnumerable<string> GetPageAsJson(IEnumerable<IEnumerable<AngleSharp.Dom.IElement>> playerRows, string pos)
@@ -164,6 +167,7 @@ namespace MaddenImporter.Core
             foreach (var enumType in types)
             {
                 var retrieved = GetPlayersJson(enumType);
+                Console.WriteLine("wtf");
                 var r = retrieved.Select(p => enumType.ConvertFromJson(p, Extensions.RemapKeys));
                 Console.WriteLine($"Retrieved {retrieved.Count()} {enumType} players.");
                 players = players.Concat(r);

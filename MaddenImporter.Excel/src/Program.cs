@@ -11,13 +11,12 @@ namespace MaddenImporter.Excel
     {
         static int Main(params string[] args)
         {
-            RootCommand rootCommand = new RootCommand("Retrieves all player info and formats it for Madden 2020.")
+            RootCommand rootCommand = new RootCommand("Retrieves all player info and formats it for Madden.")
             {
                 new Option<int>(
                     new string[]{"--year", "-y"},
-                    // getDefaultValue: () => DateTime.Now.Year,
-                    getDefaultValue: () => 2024,
-                    description: "For seasonal imports, sets the year to pull data from."
+                    getDefaultValue: () => DateTime.Now.Year,
+                    description: "For seasonal stats, sets the year to pull data from."
                 ),
                 new Option<bool>(
                     "--career",
@@ -31,11 +30,11 @@ namespace MaddenImporter.Excel
                 ),
                 new Option<string>(
                     new string[]{"--username", "-u"},
-                    description: "For career imports, your stathead.com username."
+                    description: "For career stats, your stathead.com username."
                 ),
                 new Option<string>(
                     new string[]{"--password", "-p"},
-                    description: "For career imports, your stathead.com password."
+                    description: "For career stats, your stathead.com password."
                 )
             };
 
